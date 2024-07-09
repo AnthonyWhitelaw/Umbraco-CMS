@@ -17,7 +17,7 @@ test.afterEach(async ({umbracoApi}) => {
 
 test.skip('can add language', {tag: '@smoke'}, async ({umbracoApi, umbracoUi}) => {
   // Arrange
-  await umbracoUi.language.goToSettingsTreeItem('Language');
+  await umbracoUi.language.goToSettingsTreeItem('Languages');
 
   // Act
   await umbracoUi.language.clickCreateLink();
@@ -31,11 +31,11 @@ test.skip('can add language', {tag: '@smoke'}, async ({umbracoApi, umbracoUi}) =
   await umbracoUi.language.isLanguageNameVisible(languageName, true);
 });
 
-test('can update default language option', {tag: '@smoke'}, async ({umbracoApi, umbracoUi}) => {
+test('can update default language option', {tag: '@smoke'}, async ({page, umbracoApi, umbracoUi}) => {
   // Arrange
   await umbracoApi.language.create(languageName, false, false, isoCode);
   expect(await umbracoApi.language.doesExist(isoCode)).toBeTruthy();
-  await umbracoUi.language.goToSettingsTreeItem('Language');
+  await umbracoUi.language.goToSettingsTreeItem('Languages');
 
   // Act
   await umbracoUi.language.clickLanguageByName(languageName);
@@ -57,7 +57,7 @@ test('can update mandatory language option', async ({umbracoApi, umbracoUi}) => 
   // Arrange
   await umbracoApi.language.create(languageName, false, false, isoCode);
   expect(await umbracoApi.language.doesExist(isoCode)).toBeTruthy();
-  await umbracoUi.language.goToSettingsTreeItem('Language');
+  await umbracoUi.language.goToSettingsTreeItem('Languages');
 
   // Act
   await umbracoUi.language.clickLanguageByName(languageName);
@@ -73,7 +73,7 @@ test('can delete language', {tag: '@smoke'}, async ({umbracoApi, umbracoUi}) => 
   // Arrange
   await umbracoApi.language.create(languageName, false, false, isoCode);
   expect(await umbracoApi.language.doesExist(isoCode)).toBeTruthy();
-  await umbracoUi.language.goToSettingsTreeItem('Language');
+  await umbracoUi.language.goToSettingsTreeItem('Languages');
 
   // Act
   await umbracoUi.language.removeLanguageByName(languageName);
@@ -90,7 +90,7 @@ test.skip('can remove fallback language', async ({umbracoApi, umbracoUi}) => {
   // Arrange
   await umbracoApi.language.create(languageName, false, false, isoCode);
   expect(await umbracoApi.language.doesExist(isoCode)).toBeTruthy();
-  await umbracoUi.language.goToSettingsTreeItem('Language');
+  await umbracoUi.language.goToSettingsTreeItem('Languages');
 
   // Act
   await umbracoUi.language.clickLanguageByName(languageName);
@@ -107,7 +107,7 @@ test.skip('can add fallback language', async ({umbracoApi, umbracoUi}) => {
   // Arrange
   await umbracoApi.language.create(languageName, false, false, isoCode, null);
   expect(await umbracoApi.language.doesExist(isoCode)).toBeTruthy();
-  await umbracoUi.language.goToSettingsTreeItem('Language');
+  await umbracoUi.language.goToSettingsTreeItem('Languages');
 
   // Act
   await umbracoUi.language.clickLanguageByName(languageName);

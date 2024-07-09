@@ -15,7 +15,7 @@ test.afterEach(async ({umbracoApi}) => {
   await umbracoApi.documentType.ensureNameNotExists(documentTypeName);
 });
 
-test('can add a property to a document type', {tag: '@smoke'}, async ({umbracoApi, umbracoUi}) => {
+test('can add a property to a document type', {tag: '@smoke'}, async ({page, umbracoApi, umbracoUi}) => {
   // Arrange
   await umbracoApi.documentType.createDefaultDocumentType(documentTypeName);
   await umbracoUi.documentType.goToSection(ConstantHelper.sections.settings);
@@ -328,7 +328,7 @@ test.skip('can reorder tabs in a document type', {tag: '@smoke'}, async ({umbrac
   expect(await umbracoApi.documentType.doesDocumentTypeTabNameContainCorrectSortOrder(documentTypeName, tabName, 1)).toBeTruthy();
 });
 
-test('can add a description to a property in a document type', async ({umbracoApi, umbracoUi}) => {
+test('can add a description to a property in a document type', async ({page, umbracoApi, umbracoUi}) => {
   // Arrange
   const dataTypeData = await umbracoApi.dataType.getByName(dataTypeName);
   const descriptionText = 'This is a property';
@@ -338,8 +338,9 @@ test('can add a description to a property in a document type', async ({umbracoAp
   // Act
   await umbracoUi.documentType.goToDocumentType(documentTypeName);
   await umbracoUi.documentType.clickEditorSettingsButton();
+  await page.pause();
   await umbracoUi.documentType.enterPropertyEditorDescription(descriptionText);
-  await umbracoUi.documentType.clickUpdateButton();
+  await umbracoUi.documentType.clickSubmitButton();
   await umbracoUi.documentType.clickSaveButton();
 
   // Assert
@@ -360,7 +361,7 @@ test('can set is mandatory for a property in a document type', {tag: '@smoke'}, 
   await umbracoUi.documentType.goToDocumentType(documentTypeName);
   await umbracoUi.documentType.clickEditorSettingsButton();
   await umbracoUi.documentType.clickMandatorySlider();
-  await umbracoUi.documentType.clickUpdateButton();
+  await umbracoUi.documentType.clickSubmitButton();
   await umbracoUi.documentType.clickSaveButton();
 
   // Assert
@@ -383,7 +384,7 @@ test('can enable validation for a property in a document type', async ({umbracoA
   await umbracoUi.documentType.selectValidationOption('');
   await umbracoUi.documentType.enterRegEx(regex);
   await umbracoUi.documentType.enterRegExMessage(regexMessage);
-  await umbracoUi.documentType.clickUpdateButton();
+  await umbracoUi.documentType.clickSubmitButton();
   await umbracoUi.documentType.clickSaveButton();
 
   // Assert
@@ -403,7 +404,7 @@ test('can allow vary by culture for a property in a document type', {tag: '@smok
   await umbracoUi.documentType.goToDocumentType(documentTypeName);
   await umbracoUi.documentType.clickEditorSettingsButton();
   await umbracoUi.documentType.clickVaryByCultureSlider();
-  await umbracoUi.documentType.clickUpdateButton();
+  await umbracoUi.documentType.clickSubmitButton();
   await umbracoUi.documentType.clickSaveButton();
 
   // Assert
@@ -422,7 +423,7 @@ test('can set appearance to label on top for a property in a document type', asy
   await umbracoUi.documentType.goToDocumentType(documentTypeName);
   await umbracoUi.documentType.clickEditorSettingsButton();
   await umbracoUi.documentType.clickLabelAboveButton();
-  await umbracoUi.documentType.clickUpdateButton();
+  await umbracoUi.documentType.clickSubmitButton();
   await umbracoUi.documentType.clickSaveButton();
 
   // Assert

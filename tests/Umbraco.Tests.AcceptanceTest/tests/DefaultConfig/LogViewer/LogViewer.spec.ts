@@ -13,7 +13,7 @@ test.afterEach(async ({umbracoApi}) => {
   await umbracoApi.telemetry.setLevel(startTelemetryLevel);
 });
 
-test('can search', {tag: '@smoke'}, async ({umbracoApi, umbracoUi}) => {
+test('can search', {tag: '@smoke'}, async ({page, umbracoApi, umbracoUi}) => {
   // Arrange
   const telemetryLevel = 'Minimal';
   await umbracoApi.telemetry.setLevel(telemetryLevel);
@@ -30,11 +30,12 @@ test('can search', {tag: '@smoke'}, async ({umbracoApi, umbracoUi}) => {
 
 });
 
-test('can change the search log level', async ({umbracoUi}) => {
+test('can change the search log level', async ({page,umbracoUi}) => {
   // Arrange
   const logLevel = 'Information';
 
   // Act
+  await page.pause();
   await umbracoUi.logViewer.clickSearchButton();
   await umbracoUi.logViewer.waitUntilLoadingSpinnerInvisible();
   await umbracoUi.logViewer.selectLogLevel(logLevel);
